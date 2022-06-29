@@ -12,10 +12,10 @@ const countryListRef = document.querySelector('ul.country-list');
 const countryInfoRef = document.querySelector('div.country-info');
 const loadingImageRef = document.querySelector('.loading-image');
 
-inputFieldRef.addEventListener('input', debounce(onSearch, DEBOUNCE_DELAY));
+inputFieldRef.addEventListener('input', debounce(doSearch, DEBOUNCE_DELAY));
 countryListRef.addEventListener('click', onClickLink);
 
-function onSearch(e) {
+function doSearch(e) {
   const searchName = e.target.value.trim();
   if (searchName.length) {
     showLoadingImage(true);
@@ -86,5 +86,5 @@ function onClickLink(e) {
 
   inputFieldRef.value = e.target.dataset.href.trim();
   console.log(e.target);
-  onSearch({'target':inputFieldRef});
+  doSearch({'target':inputFieldRef});
 }
