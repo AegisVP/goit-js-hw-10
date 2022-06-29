@@ -19,20 +19,25 @@ function doSearch(e) {
   const searchName = e.target.value.trim();
   if (searchName.length) {
     showLoadingImage(true);
-    if (searchName) fetchCountries(searchName).then(countries => {
-      drawCountries(countries);
-      showLoadingImage(false);
-    });
-  } 
+    if (searchName) {
+      fetchCountries(searchName)
+        .then(countries => {
+          drawCountries(countries);
+        })
+        .finally(() => {
+          showLoadingImage(false);
+        });
+    }
+  }
 }
 
-function showLoadingImage (show = true) {
+function showLoadingImage(show = true) {
   if (show) {
     loadingImageRef.classList.remove('is-hidden');
     inputFieldRef.disabled = true;
     return;
   }
-  
+
   loadingImageRef.classList.add('is-hidden');
   inputFieldRef.disabled = false;
   inputFieldRef.focus();
@@ -73,12 +78,16 @@ function markupCountryList(countries) {
 function markupCountryInfo({ languages, flags, name, capital, population }) {
   return `
     <div class="country-info__title-wrapper">
-      <img class="country-info__image" width="90" src="${flags.svg}" alt="${name}">
+      <img class="country-info__image" width="90" src="${
+        flags.svg
+      }" alt="${name}">
       <p class="country-info__title">${name}</p>
     </div>
     <p class="country-info__text"><span class="country-info__label">Capital:</span> ${capital}</p>
     <p class="country-info__text"><span class="country-info__label">Population:</span> ${population}</p>
-    <p class="country-info__text"><span class="country-info__label">Languages:</span> ${languages.map(language=>language.name).join(', ')}</p>`;
+    <p class="country-info__text"><span class="country-info__label">Languages:</span> ${languages
+      .map(language => language.name)
+      .join(', ')}</p>`;
 }
 
 function onClickLink(e) {
@@ -86,5 +95,5 @@ function onClickLink(e) {
 
   inputFieldRef.value = e.target.dataset.href.trim();
   console.log(e.target);
-  doSearch({'target':inputFieldRef});
+  doSearch({ target: inputFieldRef });
 }
