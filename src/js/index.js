@@ -57,13 +57,13 @@ function drawCountries(countries) {
   console.log(countries);
 
   if (countries.length > 10) {
-    Notify.info('Too many results. Please be more specific');
+    Notify.info('Too many matches found. Please enter a more specific name.');
   } else if (countries.length > 1) {
     countryListRef.innerHTML = markupCountryList(countries);
   } else if (countries.length === 1) {
     countryInfoRef.innerHTML = markupCountryInfo(countries[0]);
   } else {
-    Notify.failure('Nothing found with that name :(');
+    Notify.failure('Oops, there is no country with that name');
   }
 }
 
