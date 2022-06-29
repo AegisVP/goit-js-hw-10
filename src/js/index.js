@@ -17,6 +17,7 @@ countryListRef.addEventListener('click', onClickLink);
 
 function doSearch(e) {
   const searchName = e.target.value.trim();
+  
   if (searchName.length) {
     showLoadingImage(true);
     if (searchName) {
@@ -28,6 +29,8 @@ function doSearch(e) {
           showLoadingImage(false);
         });
     }
+  } else {
+    clearSearchList();
   }
 }
 
@@ -43,9 +46,13 @@ function showLoadingImage(show = true) {
   inputFieldRef.focus();
 }
 
-function drawCountries(countries) {
+function clearSearchList () {
   countryInfoRef.innerHTML = '';
   countryListRef.innerHTML = '';
+}
+
+function drawCountries(countries) {
+  clearSearchList();
 
   console.log(countries);
 
