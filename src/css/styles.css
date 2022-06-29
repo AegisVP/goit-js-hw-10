@@ -54,7 +54,19 @@ body {
   font-weight: normal;
 }
 
-.country-info__image,
+.country-info__title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 20px;
+}
+
+.country-info__title {
+  margin: 0 0 0 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
 .country-info__text {
   margin: 0 0 20px;
 }

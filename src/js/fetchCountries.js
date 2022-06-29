@@ -1,5 +1,5 @@
 export default function fetchCountries(name) {
-  const BASE_URL = 'https://restcountries.com/v3.1/';
+  const BASE_URL = 'https://restcountries.com/v2/';
   const API_ENDPOINT = 'name';
   const FILTERS = '?fields=name,capital,flags,languages,population';
 
