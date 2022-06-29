@@ -17,11 +17,13 @@ countryListRef.addEventListener('click', onClickLink);
 
 function onSearch(e) {
   const searchName = e.target.value.trim();
-  showLoadingImage(true);
-  if (searchName) fetchCountries(searchName).then(countries => {
-    drawCountries(countries);
-    showLoadingImage(false);
-  });
+  if (searchName.length) {
+    showLoadingImage(true);
+    if (searchName) fetchCountries(searchName).then(countries => {
+      drawCountries(countries);
+      showLoadingImage(false);
+    });
+  } 
 }
 
 function showLoadingImage (show = true) {
@@ -40,6 +42,8 @@ function drawCountries(countries) {
   countryInfoRef.innerHTML = '';
   countryListRef.innerHTML = '';
 
+  console.log(countries);
+
   if (countries.length > 10) {
     Notify.info('Too many results. Please be more specific');
   } else if (countries.length > 1) {
@@ -57,9 +61,9 @@ function markupCountryList(countries) {
     .map(
       country => `
       <li class="country-list__item">
-        <a data-href="${country.name.official}" class="country-list__link" href="#">
-          <img  data-href="${country.name.official}"class="country-list__image" width="60" src="${country.flags.svg}" alt="${country.name.official}">
-          <p data-href="${country.name.official}" class="country-list__name">${country.name.official}</p>
+        <a data-href="${country.name}" class="country-list__link" href="#">
+          <img  data-href="${country.name}"class="country-list__image" width="60" src="${country.flags.svg}" alt="${country.name}">
+          <p data-href="${country.name}" class="country-list__name">${country.name}</p>
         </a>
       </li>`
     )
@@ -68,10 +72,13 @@ function markupCountryList(countries) {
 
 function markupCountryInfo({ languages, flags, name, capital, population }) {
   return `
-    <img class="country-info__image" width="90" src="${flags.svg}" alt="${name.official}">
-    <p class="country-info__text"><span class="country-info__label">Capital:</span> ${capital.join(', ')}</p>
+    <div class="country-info__title-wrapper">
+      <img class="country-info__image" width="90" src="${flags.svg}" alt="${name}">
+      <p class="country-info__title">${name}</p>
+    </div>
+    <p class="country-info__text"><span class="country-info__label">Capital:</span> ${capital}</p>
     <p class="country-info__text"><span class="country-info__label">Population:</span> ${population}</p>
-    <p class="country-info__text"><span class="country-info__label">Languages:</span> ${Object.values(languages).join(', ')}</p>`;
+    <p class="country-info__text"><span class="country-info__label">Languages:</span> ${languages.map(language=>language.name).join(', ')}</p>`;
 }
 
 function onClickLink(e) {
